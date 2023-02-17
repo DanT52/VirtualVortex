@@ -1,10 +1,11 @@
 import { ChakraProvider } from "@chakra-ui/react"
-import Term from "./components/terminal/term";
+import { router } from "lib/routes";
+import { RouterProvider } from "react-router-dom";
 
 export default function App() {
   return (
     <ChakraProvider>
-      <Term/>
+      <RouterProvider router={router} />
     </ChakraProvider>
   );
 }
