@@ -6,7 +6,7 @@ export default function App() {
   return (
     <ChakraProvider>
       <RouterProvider router={router} />
-    </ChakraProvider>
+      </ChakraProvider>
   );
 }
 

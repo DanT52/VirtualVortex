@@ -1,9 +1,10 @@
-import { Box, Button, Code, Container, Flex, Text } from "@chakra-ui/react"
+import { Box, Button, Code, Container, Flex, Stack, Text } from "@chakra-ui/react"
 import React, { useEffect, useRef, useState } from "react"
 import "./App.css"
 import AppleLogo from "./applePixels.png"
 import Monitor from "./oldMonitor.png"
 import { useInterval } from "@chakra-ui/react"
+import Navbar from "components/navbar/Navbar"
 
 const canvasX = 1000
 const canvasY = 1000
@@ -108,6 +109,18 @@ export default function Snake() {
 			case "ArrowDown":
 				setDirection([ 0, 1 ])
 				break
+            case "a":
+				setDirection([ -1, 0 ])
+				break
+			case "w":
+				setDirection([ 0, -1 ])
+				break
+			case "d":
+				setDirection([ 1, 0 ])
+				break
+			case "s":
+				setDirection([ 0, 1 ])
+				break
 		}
 	}
 
@@ -117,17 +130,23 @@ export default function Snake() {
     
 
 	return (
+        <>
         
         
+        <Navbar/>
 
-        <Box
+        <Flex
+      flexDirection="column"
+      width="100wh"
+      height="100vh"
+      backgroundColor="#08151F"
+      justifyContent="center"
+      alignItems="center"
+    >
         
         
-        backgroundColor="#08151F"
-
-        width="100wh"
-        height="100vh"
-        >  
+  
+        
         <div onKeyDown={(e) => changeDirection(e)}>
 			<img id="fruit" src={AppleLogo} alt="fruit" width="50" />
 		
@@ -147,18 +166,26 @@ export default function Snake() {
 
 
 
-			{gameOver &&  //User lost...
-            <Flex // add play again button and show their score.
+			
+            <Stack
+            flexDir="column"
+            mt="40"
             justifyContent="center"
             alignItems="center"
-                >
-            <Text as="b" fontSize="2xl" color="white">Game Over!</Text>
-            </Flex>
-            }
+            >
+                
+                {gameOver &&
+            <Text as="b" fontSize="4xl" color="white">Game Over!</Text>}
+            
+            </Stack>
+            
             
 
-            {gamestarted && <Flex
-                justifyContent="center">
+            {gamestarted &&
+            
+            <Flex
+                justifyContent="center"
+                mt="60">
 			<Box mt="100px"
             
             >
@@ -167,19 +194,23 @@ export default function Snake() {
             
             </Flex> }
 
-            <Flex
+            <Stack
+                flexDir="column"
+                my="5"
                 justifyContent="center"
+                alignItems="center"
                 >
 
             <Button colorScheme="purple" onClick={play}>
                 {!gamestarted ? "Play" : !gameOver ? "Restart" :"Play again"}
             </Button>
 
-            </Flex>
+            </Stack>
 
             
             </div>
-            </Box>
+            </Flex>
+            </>
 		
         
 	)
