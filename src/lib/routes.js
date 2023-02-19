@@ -1,5 +1,6 @@
-import Root from "components/NotLoggedIn/homepage/home";
-import Term from "components/NotLoggedIn/terminal/term";
+import Root from "components/homepage/home";
+import Snake from "components/snake";
+import Term from "components/terminal/term";
 import { createBrowserRouter} from "react-router-dom";
 
 export const ROOT = "/";
@@ -10,7 +11,7 @@ export const LOGIN = "/login"
 export const router = createBrowserRouter([
     { path: ROOT, element: <Root/> },
     { path: TERM, element: <Term/>},
-    { path: SNAKE, element: "Snake game"},
+    { path: SNAKE, element: <Snake/>},
     { path: LOGIN, element: "Login Page"}
 
 ]);

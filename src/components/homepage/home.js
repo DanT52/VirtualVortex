@@ -1,4 +1,4 @@
-import { Button, Flex, Text, Code, Image, background} from "@chakra-ui/react";
+import { Button, Flex, Text, Code, Image, background, AspectRatio} from "@chakra-ui/react";
 import image from "images/background.jpg"
 import { LOGIN, SNAKE, TERM } from "lib/routes";
 import { Link } from "react-router-dom";
@@ -14,7 +14,9 @@ export default function Root(){
         width="100wh"
         height="100vh"
         >  
-        <Image src={image}></Image>
+        
+        <Image mt="20" src={image} objectFit="cover"></Image>
+        
 
             <Flex mb="80" flexDirection="row">
                 <Button
