@@ -1,22 +1,13 @@
 import { Flex } from "@chakra-ui/react"
 import Navbar from "components/navbar/Navbar"
-import { ROOT } from "lib/routes"
+import { LOGIN, ROOT, SNAKE } from "lib/routes"
 import React from "react"
 import Terminal from "react-console-emulator"
 import { useNavigate } from "react-router-dom"
-import { VirtualWelcome } from "./longCmdResponses"
+import { cmds } from "./commands"
+import { catResponse, getCat, VirtualWelcome } from "./longCmdResponses"
 
 
-
-const cmds = {
-    echo: {
-      description: 'Echo a passed string.',
-      usage: 'echo <string>',
-      fn: (...args) => args.join(' ')
-    },
-    
-    
-  }
 
 export default function Term(){
   const terminal = React.createRef();
@@ -41,8 +32,6 @@ export default function Term(){
 
             commands={{
               clear: {
-              description: "Clears the terminal",
-              usage: "clear",
               fn: () => {
                 terminal.current.clearStdout();
               }
@@ -53,9 +42,39 @@ export default function Term(){
               fn: async () => {
                 
                 navigate(ROOT)
-                return `ok`
+                return 
               }
             
+            },
+            snake: {
+              
+              fn: async () => {
+                
+                navigate(SNAKE)
+                return 
+              }
+            
+            },
+            login: {
+              
+              fn: async () => {
+                
+                navigate(LOGIN)
+                return 
+              }
+            
+            },
+            cat: {
+              fn: async () => {
+                const url = await getCat()
+                terminal.current.pushToStdout(
+                  <img src={url} width="500px" height="380px" alt="cat"></img>
+
+                )
+                console.log(catResponse())
+                return catResponse();
+
+              }
             },
             ...cmds
           }}
@@ -76,7 +95,7 @@ export default function Term(){
             contentStyle={{ color: '#ffb86c' , fontWeight: 'normal', paddingLeft: null}} // Text colour
             promptLabelStyle={{ color: '#ff5555' , fontWeight:'bold'}} // Prompt label colour
             inputTextStyle={{ color: '#8be9fd' , fontWeight: 'normal'}}
-            messageStyle={{ color: '#C280FF' , fontWeight: 'normal', paddingLeft: null}}
+            messageStyle={{ color: '#C298FF' , fontWeight: 'normal', paddingLeft: null}}
             scrollBehavior='auto'
             noDefaults
           />
