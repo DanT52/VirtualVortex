@@ -1,9 +1,11 @@
 import { Flex, Link, Button, Box } from "@chakra-ui/react";
+import { useLogout } from "hooks/auth";
 import { ROOT, TERM } from "lib/routes";
 
 import { Link as RouterLink} from "react-router-dom";
 
 export default function Navbar() {
+    const {logout, isLoading} = useLogout();
     
 
     return(
@@ -35,6 +37,7 @@ export default function Navbar() {
                     ml="auto"
                     colorScheme="purple"
                     size="sm"
+                    onClick={logout}
                     
                      
                     >

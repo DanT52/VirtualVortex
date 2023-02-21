@@ -5,18 +5,20 @@ import { Box, Center, FormLabel, Heading, Input, FormControl, FormErrorMessage, 
 import { Link as RouterLink} from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { emailValidate, passwordValidate } from "utils/form-validate";
-import { REGISTER } from "lib/routes";
+import { REGISTER, ROOT } from "lib/routes";
 import Navbar from "components/navbar/Navbar";
+import { useLogin } from "hooks/auth";
 
 export default function Login() {
-    //const { login, isLoading} = useLogin();
+    const { login, isLoading} = useLogin();
+    
     const {register, handleSubmit, reset, formState: {errors}} = useForm();
 
     
 
     async function handleLogin(data){
         
-        const succeeded = true//await login({email: data.email, password: data.password, redirectTo: DASHBOARD});
+        const succeeded = await login({email: data.email, password: data.password, redirectTo: ROOT});
 
         if (succeeded) reset();
     }

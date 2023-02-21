@@ -1,5 +1,6 @@
 import { Flex } from "@chakra-ui/react"
 import Navbar from "components/navbar/Navbar"
+import { useLogout } from "hooks/auth"
 import { LOGIN, ROOT, SNAKE } from "lib/routes"
 import React from "react"
 import Terminal from "react-console-emulator"
@@ -12,6 +13,7 @@ import { catResponse, getCat, VirtualWelcome } from "./longCmdResponses"
 export default function Term(){
   const terminal = React.createRef();
   const navigate =useNavigate();
+  const {logout, isLoading} = useLogout();
     
         return (
         <>
@@ -74,6 +76,11 @@ export default function Term(){
                 console.log(catResponse())
                 return catResponse();
 
+              }
+            },
+            logout: {
+              fn: ()=> {
+                logout()
               }
             },
             ...cmds
