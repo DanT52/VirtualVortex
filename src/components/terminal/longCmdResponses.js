@@ -14,7 +14,7 @@ export const VirtualWelcome = [
 export const helpCommand = ` 
 List of Commands:
 ---
-Navigate commands: home, snake, login
+Navigate commands: home, snake, login, logout
 ---
 Fun commands:
 command | what it does          | usage

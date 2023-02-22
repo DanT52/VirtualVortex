@@ -1,9 +1,16 @@
 import { Button, Flex, Text, Code, Image, background, AspectRatio} from "@chakra-ui/react";
+import Loading from "components/extra/loading";
+import { useAuth, useLogout } from "hooks/auth";
 import image from "images/background.jpg"
 import { LOGIN, SNAKE, TERM } from "lib/routes";
 import { Link } from "react-router-dom";
 
 export default function Root(){
+    const {logout, isLoading} = useLogout();
+    const {user, isLoading: userLoading} = useAuth();
+    if (userLoading){
+        return <Loading/>
+      }
 
     return(
         <Flex
@@ -40,7 +47,9 @@ export default function Root(){
                 >
                     <Code variant ="solid" colorScheme="purple">Terminal</Code>
                 </Button>
-                <Button
+
+
+                {(!userLoading && !user) &&<Button
                     mx="5" 
                     variant="solid"
                     colorScheme="purple"
@@ -48,8 +57,20 @@ export default function Root(){
                     to={LOGIN}
                 
                 >
-                    <Code variant ="solid" colorScheme="purple">Login</Code>
+                    <Code variant ="solid" colorScheme="purple"> Login</Code>
                 </Button>
+                }
+
+                {(!userLoading && user) &&<Button
+                    mx="5" 
+                    variant="solid"
+                    colorScheme="purple"
+                    onClick={logout}
+                
+                >
+                    <Code variant ="solid" colorScheme="purple"> Logout</Code>
+                </Button>
+                }
 
                 
 

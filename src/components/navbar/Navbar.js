@@ -1,11 +1,22 @@
 import { Flex, Link, Button, Box } from "@chakra-ui/react";
-import { useLogout } from "hooks/auth";
+import Loading from "components/extra/loading";
+import { useAuth, useLogout } from "hooks/auth";
 import { ROOT, TERM } from "lib/routes";
+import { useState } from "react";
 
 import { Link as RouterLink} from "react-router-dom";
 
 export default function Navbar() {
     const {logout, isLoading} = useLogout();
+    const {user, isLoading: userLoading} = useAuth();
+    if (userLoading){
+        return <Loading/>
+      }
+
+    
+    
+
+  
     
 
     return(
@@ -33,16 +44,19 @@ export default function Navbar() {
                     terminal
                 </Link>
 
-                <Button
+                 {(!userLoading && user) &&<Button
                     ml="auto"
                     colorScheme="purple"
                     size="sm"
                     onClick={logout}
                     
+                    
                      
                     >
                         Logout
                     </Button>
+                }
+
             </Flex>
         </Flex>
     )

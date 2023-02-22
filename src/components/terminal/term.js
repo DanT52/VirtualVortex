@@ -1,6 +1,7 @@
 import { Flex } from "@chakra-ui/react"
+import Loading from "components/extra/loading"
 import Navbar from "components/navbar/Navbar"
-import { useLogout } from "hooks/auth"
+import { useAuth, useLogout } from "hooks/auth"
 import { LOGIN, ROOT, SNAKE } from "lib/routes"
 import React from "react"
 import Terminal from "react-console-emulator"
@@ -14,6 +15,22 @@ export default function Term(){
   const terminal = React.createRef();
   const navigate =useNavigate();
   const {logout, isLoading} = useLogout();
+  const {user, isLoading: userLoading} = useAuth();
+  let prompt = (`${user?.username}@VV:~$ `)
+
+  if (userLoading){
+    return <Loading/>
+  }
+  
+  
+  //const [prompt, setPrompt] = React.useState('you@/ashterm:~$ ')
+
+  //setPrompt(`VirtualVortex@${user?.username}:~$ `)
+  if (!user){
+    prompt ="you@VirtualVortex:~$ "
+    
+  }
+  
     
         return (
         <>
@@ -60,9 +77,13 @@ export default function Term(){
             login: {
               
               fn: async () => {
+
+                if (!user){
                 
-                navigate(LOGIN)
-                return 
+                  navigate(LOGIN)
+                }else{
+                  return "You are already Logged in ^_^"
+                }
               }
             
             },
@@ -80,13 +101,18 @@ export default function Term(){
             },
             logout: {
               fn: ()=> {
-                logout()
+                if (user){
+                  logout()
+                }else{
+                  return "You need to be logged in to logout ^_^"
+                }
+                
               }
             },
             ...cmds
           }}
             
-            promptLabel={'me@VirtualVortex:~$'}
+            promptLabel={prompt}
 
             style={{
                 backgroundColor:"#08151F",

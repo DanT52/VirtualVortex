@@ -35,7 +35,7 @@ export default function Login() {
     <Center w="100%" h ="100vh">
         <Box mx="1" maxW="md" p="9" borderWidth="3px" borderRadius="lg" borderColor="purple.300">
             <Heading mb="4" size="lg" textAlign="center" color="purple.400">
-                Log In (nonfunctional)
+                Log In
             </Heading>
 
             <form onSubmit={handleSubmit(handleLogin)}>

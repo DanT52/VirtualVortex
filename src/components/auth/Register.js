@@ -7,11 +7,27 @@ import { Link as RouterLink} from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { emailValidate, passwordValidate, usernameValidate } from "utils/form-validate";
 import Navbar from "components/navbar/Navbar";
-import { LOGIN } from "lib/routes";
+import { LOGIN, ROOT } from "lib/routes";
+import { useRegister } from "hooks/auth";
 
 export default function Register() {
+
+    const { register :signup, isLoading} = useRegister();
     
     const {register, handleSubmit, formState: {errors}} = useForm();
+
+
+    async function handleRegister(data){
+        
+        const succeeded = await signup({
+            username: data.username,
+            email: data.email, 
+            password: data.password, 
+            redirectTo: ROOT
+        });
+
+        
+    }
 
     
 
@@ -28,10 +44,10 @@ export default function Register() {
     <Center w="100%" h ="100vh">
         <Box mx="1" maxW="md" p="9" borderWidth="3px" borderRadius="lg" borderColor="purple.300">
             <Heading mb="4" size="lg" textAlign="center" color="purple.400">
-                Register(non functional)
+                Register
             </Heading>
 
-            <form >
+            <form onSubmit={handleSubmit(handleRegister)}>
 
                  <FormControl isInvalid={errors.username} py="2">
                     <FormLabel color="white">Username</FormLabel>

@@ -5,6 +5,9 @@ import AppleLogo from "./applePixels.png"
 import Monitor from "./oldMonitor.png"
 import { useInterval } from "@chakra-ui/react"
 import Navbar from "components/navbar/Navbar"
+import Loading from "components/extra/loading"
+import { useAuth } from "hooks/auth"
+import { getGame } from "hooks/users"
 
 const canvasX = 1000
 const canvasY = 1000
@@ -22,6 +25,18 @@ export default function Snake() {
 	const [ gameOver, setGameOver ] = useState(false)
 	const [ score, setScore ] = useState(0)
     const [ gamestarted, setGameStarted ] = useState(false)
+	//const {user, isLoading: userLoading} = useAuth();
+	
+	
+	
+
+	
+	/*
+	const { snakeHighScore } = getGame(user?.username)
+	console.log("snakeHighScore"); */
+	
+
+	
 
 	useInterval(() => runGame(), delay)
 
@@ -126,7 +141,17 @@ export default function Snake() {
 
  
 
-    
+    /*if (userLoading){
+		return <Loading/>
+	}
+	if (user){
+		//let { snakeHighScore } = getGame(user.username)
+		console.log(user.username)
+		//console.log(snakeHighScore)
+	}*/
+	
+	
+	
     
 
 	return (
