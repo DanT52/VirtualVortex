@@ -7,7 +7,7 @@ import { useInterval } from "@chakra-ui/react"
 import Navbar from "components/navbar/Navbar"
 import Loading from "components/extra/loading"
 import { useAuth } from "hooks/auth"
-import { getGame } from "hooks/users"
+import { getGame, useGetGame, useSaveSnakeHs } from "hooks/users"
 
 const canvasX = 1000
 const canvasY = 1000
@@ -16,7 +16,55 @@ const initialApple = [ 14, 10 ]
 const scale = 50
 const timeDelay = 60
 
-export default function Snake() {
+
+export default function Snake(){
+
+	
+	const {user, isLoading: userLoading} = useAuth();
+	if (user& !userLoading){
+		const loggedin=true;
+	}
+
+	function InnerSnake(){
+		const { data, isLoading: scoreLoading }  =  useGetGame(user.username);
+
+		
+
+		if (scoreLoading){
+			return <Loading/>
+		}
+
+		return(
+			<SnakeGame highscore={data.snakeHighScore} username={user.username} loggedin={true}/>
+	
+		)
+
+
+	}
+
+	if (userLoading){
+
+		return (<Loading/>)
+
+	} else if (!user && !userLoading){
+		return <SnakeGame />
+
+	}else {
+		return (<InnerSnake/>)
+	}
+		
+	
+	
+
+
+	
+	
+
+
+}
+
+export function SnakeGame({ highscore=null, loggedin=false, username=null }) {
+	const { saveSnakeHs } = useSaveSnakeHs();
 	const canvasRef = useRef()
 	const [ snake, setSnake ] = useState(initialSnake)
 	const [ apple, setApple ] = useState(initialApple)
@@ -24,16 +72,12 @@ export default function Snake() {
 	const [ delay, setDelay ] = useState()
 	const [ gameOver, setGameOver ] = useState(false)
 	const [ score, setScore ] = useState(0)
+
     const [ gamestarted, setGameStarted ] = useState(false)
-	//const {user, isLoading: userLoading} = useAuth();
-	
-	
-	
 
 	
-	/*
-	const { snakeHighScore } = getGame(user?.username)
-	console.log("snakeHighScore"); */
+	const [ highScore, setHighScore ] = useState(highscore)
+	
 	
 
 	
@@ -59,8 +103,9 @@ export default function Snake() {
 	)
 
 	function handleSetScore() {
-		if (score > Number(localStorage.getItem("snakeScore"))) {
-			localStorage.setItem("snakeScore", JSON.stringify(score))
+		if (score > highScore && loggedin) {
+			setHighScore(score)
+			saveSnakeHs(score, username)
 		}
 	}
 
@@ -141,14 +186,7 @@ export default function Snake() {
 
  
 
-    /*if (userLoading){
-		return <Loading/>
-	}
-	if (user){
-		//let { snakeHighScore } = getGame(user.username)
-		console.log(user.username)
-		//console.log(snakeHighScore)
-	}*/
+    
 	
 	
 	
@@ -214,7 +252,8 @@ export default function Snake() {
 			<Box mt="100px"
             
             >
-                <Code variant="solid" colorScheme="purple"><Text fontSize="md" as="b">Score: {score}</Text></Code>
+                <Code variant="solid" colorScheme="purple" mx="4px"><Text fontSize="md" as="b">Score: {score}</Text></Code>
+				{loggedin &&<Code variant="solid" colorScheme="purple" mx="4px"><Text fontSize="md" as="b">HighScore: {highScore}</Text></Code>}
             </Box>
             
             </Flex> }
@@ -225,6 +264,12 @@ export default function Snake() {
                 justifyContent="center"
                 alignItems="center"
                 >
+					{(gameOver && !loggedin) && <Code 
+					variant="solid" 
+					colorScheme="purple" 
+					mx="4px"><Text 
+					fontSize="sm" 
+					as="b">Login to have your highscores saved..</Text></Code>}
 
             <Button colorScheme="purple" onClick={play}>
                 {!gamestarted ? "Play" : !gameOver ? "Restart" :"Play again"}

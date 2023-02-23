@@ -1,21 +1,23 @@
 import { Flex } from "@chakra-ui/react"
 import Loading from "components/extra/loading"
-import Navbar from "components/navbar/Navbar"
+
 import { useAuth, useLogout } from "hooks/auth"
+import { useGetGame } from "hooks/users"
 import { LOGIN, ROOT, SNAKE } from "lib/routes"
 import React from "react"
 import Terminal from "react-console-emulator"
 import { useNavigate } from "react-router-dom"
 import { cmds } from "./commands"
-import { catResponse, getCat, VirtualWelcome } from "./longCmdResponses"
+import { catResponse, getCat, SnakeScoreResponse, VirtualWelcome } from "./longCmdResponses"
 
 
 
 export default function Term(){
   const terminal = React.createRef();
   const navigate =useNavigate();
-  const {logout, isLoading} = useLogout();
+  const {logout} = useLogout();
   const {user, isLoading: userLoading} = useAuth();
+  
   let prompt = (`${user?.username}@VV:~$ `)
 
   if (userLoading){
@@ -109,6 +111,7 @@ export default function Term(){
                 
               }
             },
+            
             ...cmds
           }}
             
@@ -122,8 +125,10 @@ export default function Term(){
                 height: '100%',
                 width: '100%',
             }}
-            disableOnProcess={true}
-            autoFocus
+            
+            
+            
+            
             styleEchoBack='fullInherit'
             contentStyle={{ color: '#ffb86c' , fontWeight: 'normal', paddingLeft: null}} // Text colour
             promptLabelStyle={{ color: '#ff5555' , fontWeight:'bold'}} // Prompt label colour

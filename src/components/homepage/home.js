@@ -22,7 +22,7 @@ export default function Root(){
         height="100vh"
         >  
         
-        <Image mt="20" src={image} objectFit="cover"></Image>
+        <Image mt="20" pt="20" src={image} objectFit="cover" boxSize="xl"></Image>
         
 
             <Flex mb="80" flexDirection="row">

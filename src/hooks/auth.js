@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuthState, useSignOut } from 'react-firebase-hooks/auth';
 import isUsernameExists from "utils/isUsernameExists";
 import { doc, getDoc, setDoc } from "firebase/firestore";
+import { useLocation } from "react-router-dom";
 
 
 export function useLogin() {
@@ -53,6 +54,8 @@ export function useLogin() {
     const [signOut, isLoading, error] = useSignOut(auth);
     const toast = useToast();
     const navigate = useNavigate();
+    const location = useLocation();
+
     
 
     async function logout() {
@@ -64,7 +67,16 @@ export function useLogin() {
           position: "top",
           duration: 5000,
         });
-        navigate(ROOT);
+
+        if (location.pathname === ROOT){
+          setTimeout(function(){
+            navigate(0)
+            }, 700);
+        }else{
+          navigate(ROOT);
+
+        }
+        
 
       }//else show error
 
@@ -109,7 +121,7 @@ export function useLogin() {
               date: Date.now(),
             });
 
-            await setDoc(doc(db, "gamestuff", username), {
+            await setDoc(doc(db, "gamestuff", username.toLowerCase()), {
               vortexCoins: 0,
               snakeHighScore: 0,
               timesPlayedSnake: 0,

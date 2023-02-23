@@ -1,3 +1,5 @@
+import { useGetGame } from "hooks/users"
+
 export const VirtualWelcome = [
     " __   ___     _             ___   __       _           ",
     " \\ \\ / (_)_ _| |_ _  _ __ _| \\ \\ / /__ _ _| |_ _____ __",
@@ -34,10 +36,19 @@ changlog
 
 export const changeLog = `
 
-2/19/2023
-
-commands created
-
+2/20/2023 v1
+launched
+--
+terminal works
+snake game works
+login/register/logout work
+--
+functionality to be added: 
+save snake highscores when logged in
+snake leaderboard
+vortex coins
+msg board
+--
 
 `
 
@@ -90,3 +101,5 @@ export function eightBallResponse(question){
 
     return ` \n...\nYour question: ${question}\n...\n8ball answer: ${pickresponse(responses)}`
 }
+
+

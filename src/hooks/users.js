@@ -1,15 +1,39 @@
-import { doc, getDoc } from "firebase/firestore";
+import { useToast } from "@chakra-ui/react";
+import { doc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "lib/firebase";
-import { useState } from "react";
+import { useDocumentData } from "react-firebase-hooks/firestore";
 
-export async function getGame(username) {
+export function useGetGame( username) {
 
-    const docRef = doc(db, "gamestuff", username);
-    const docSnap = await getDoc(docRef);
+   
+
+    const q = doc(db, "gamestuff", username)
+
+    const [data, isLoading] = useDocumentData(q);
+
     
 
-    
+    return {data, isLoading};
 
-    return docSnap.data();
+}
 
+export function useSaveSnakeHs(){
+    const toast = useToast();
+
+    async function saveSnakeHs(score, username) {
+
+        
+
+        await updateDoc(doc(db, "gamestuff", username), {
+            snakeHighScore: score
+        });
+        toast({
+            title: "New HighScore!",
+            isClosable: true,
+            position: "top",
+            duration: 5000,
+        })
+
+    }
+    return {saveSnakeHs}
 }
