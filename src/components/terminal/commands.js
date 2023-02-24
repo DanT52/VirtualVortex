@@ -13,6 +13,9 @@ export const cmds = {
     help: {
         fn: () => helpCommand
     },
+    commands: {
+        fn: () => helpCommand
+    },
     changelog: {
         fn: () => changeLog
     },
@@ -21,7 +24,8 @@ export const cmds = {
     },
     eightball: {
         fn: (...args) => eightBallResponse(args.join(' '))
-    }
+    },
+    
     
     
     

@@ -25,7 +25,8 @@ export function useSaveSnakeHs(){
         
 
         await updateDoc(doc(db, "gamestuff", username), {
-            snakeHighScore: score
+            snakeHighScore: score,
+            snakeHsTime: Date.now()
         });
         toast({
             title: "New HighScore!",

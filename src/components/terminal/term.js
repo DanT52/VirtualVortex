@@ -3,12 +3,12 @@ import Loading from "components/extra/loading"
 
 import { useAuth, useLogout } from "hooks/auth"
 import { useGetGame } from "hooks/users"
-import { LOGIN, ROOT, SNAKE } from "lib/routes"
+import { LOGIN, ROOT, SNAKE, SNAKELB } from "lib/routes"
 import React from "react"
 import Terminal from "react-console-emulator"
 import { useNavigate } from "react-router-dom"
 import { cmds } from "./commands"
-import { catResponse, getCat, SnakeScoreResponse, VirtualWelcome } from "./longCmdResponses"
+import { catResponse, getCat, getSnakeHs, SnakeScoreResponse, VirtualWelcome } from "./longCmdResponses"
 
 
 
@@ -76,6 +76,15 @@ export default function Term(){
               }
             
             },
+            snakelb: {
+              
+              fn: async () => {
+                
+                navigate(SNAKELB)
+                return 
+              }
+            
+            },
             login: {
               
               fn: async () => {
@@ -111,6 +120,16 @@ export default function Term(){
                 
               }
             },
+            snakehs: {
+              fn: async () => {
+                if (!user){
+                  return "please login, to save and veiw highscores."
+                }
+                const text = await getSnakeHs(user.username)
+
+                return text
+              }
+          },
             
             ...cmds
           }}

@@ -8,6 +8,8 @@ import Navbar from "components/navbar/Navbar"
 import Loading from "components/extra/loading"
 import { useAuth } from "hooks/auth"
 import { getGame, useGetGame, useSaveSnakeHs } from "hooks/users"
+import { Link } from "react-router-dom"
+import { SNAKELB } from "lib/routes"
 
 const canvasX = 1000
 const canvasY = 1000
@@ -274,6 +276,11 @@ export function SnakeGame({ highscore=null, loggedin=false, username=null }) {
             <Button colorScheme="purple" onClick={play}>
                 {!gamestarted ? "Play" : !gameOver ? "Restart" :"Play again"}
             </Button>
+			{(gameOver || !gamestarted)&&
+			
+			<Button colorScheme="purple" as={Link} to={SNAKELB}>
+                Veiw Leaderboard
+            </Button> }
 
             </Stack>
 

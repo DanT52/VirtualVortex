@@ -51,7 +51,7 @@ export function useLogin() {
 
 
   export function useLogout() {
-    const [signOut, isLoading, error] = useSignOut(auth);
+    const [signOut, isLoading] = useSignOut(auth);
     const toast = useToast();
     const navigate = useNavigate();
     const location = useLocation();
@@ -122,6 +122,7 @@ export function useLogin() {
             });
 
             await setDoc(doc(db, "gamestuff", username.toLowerCase()), {
+              username: username.toLowerCase(),
               vortexCoins: 0,
               snakeHighScore: 0,
               timesPlayedSnake: 0,
@@ -184,7 +185,7 @@ export function useLogin() {
         if(authUser) fetchData();
         else setLoading(false);
       }
-    }, [authLoading])
+    }, [authUser, authLoading])
 
     return {user, isLoading, error };
 

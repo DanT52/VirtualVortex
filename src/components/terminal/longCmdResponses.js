@@ -1,4 +1,6 @@
-import { useGetGame } from "hooks/users"
+import { formatDistanceToNow } from "date-fns"
+import { getGameData } from "./gamecmds"
+
 
 export const VirtualWelcome = [
     " __   ___     _             ___   __       _           ",
@@ -16,7 +18,7 @@ export const VirtualWelcome = [
 export const helpCommand = ` 
 List of Commands:
 ---
-Navigate commands: home, snake, login, logout
+Navigate commands: home, snake, snakelb, login, logout
 ---
 Fun commands:
 command | what it does          | usage
@@ -25,6 +27,7 @@ echo 
 cat     | sends a cat
 eightball   | answers your question | 8ball <your question>
 coinflip| flips a coin
+snakehs | Tells you your snake highscore and when you set it.
 ---
 Other:
 ---
@@ -36,16 +39,20 @@ changlog
 
 export const changeLog = `
 
-2/20/2023 v1
+2/20/2023 v1.0
 launched
---
-terminal works
-snake game works
-login/register/logout work
+terminal 
+snake game
+login/register/logout
+---
+2/22/2023 v1.1
+saves snake highscores when logged in (1.1)
+---
+2/24/2023 v1.2
+snake leaderboard added (1.2)
+---
 --
 functionality to be added: 
-save snake highscores when logged in
-snake leaderboard
 vortex coins
 msg board
 --
@@ -102,4 +109,18 @@ export function eightBallResponse(question){
     return ` \n...\nYour question: ${question}\n...\n8ball answer: ${pickresponse(responses)}`
 }
 
+export async function getSnakeHs(username){
+    const data = await getGameData(username)
+
+    
+
+    const highscore = data.snakeHighScore
+    const date = data.snakeHsTime
+
+
+
+    return `Your Snake highscore is: ${highscore}. \n You set this highscore ${formatDistanceToNow(date)} ago.`
+
+    
+}
 
