@@ -158,7 +158,24 @@ export function SnakeGame({ highscore=null, loggedin=false, username=null }) {
 	}
 
 	function changeDirection(e) {
-		switch (e.key) {
+
+		if ( (e.key === "ArrowLeft" || e.key === "a" ) && direction[0] != 1 && direction[1] != 0) {
+			
+			setDirection([ -1, 0 ])
+		} else if ( (e.key === "ArrowUp" || e.key === "w" ) && direction[0] != 0 && direction[1] != 1 ){
+			setDirection([ 0, -1 ])
+
+		}else if ( (e.key === "ArrowRight" || e.key === "d" ) && direction[0] != -1 && direction[1] !=  0 ){
+			setDirection([ 1, 0 ])
+
+		}else if ( (e.key === "ArrowDown" || e.key === "s" ) && direction[0] != 0 && direction[1] != -1){
+			setDirection([ 0, 1 ])
+
+		}
+
+
+
+		/*switch (e.key) {
 			case "ArrowLeft":
 				setDirection([ -1, 0 ])
 				break
@@ -183,7 +200,7 @@ export function SnakeGame({ highscore=null, loggedin=false, username=null }) {
 			case "s":
 				setDirection([ 0, 1 ])
 				break
-		}
+		} */
 	}
 
  

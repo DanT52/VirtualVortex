@@ -3,6 +3,10 @@ import { formatDistanceToNow } from "date-fns";
 
 export default function HighScore({ number, user }){
     const{ snakeHighScore: score, username, snakeHsTime: date} = user
+
+    if (score ===0){
+        return " "
+    }
     
     return (
         <Box px="4" py="2" maxW="660px" mx="auto" textAlign="left">
