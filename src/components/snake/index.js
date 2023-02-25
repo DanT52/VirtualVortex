@@ -16,7 +16,7 @@ const canvasY = 1000
 const initialSnake = [ [ 4, 10 ], [ 4, 10 ] ]
 const initialApple = [ 14, 10 ]
 const scale = 50
-const timeDelay = 60
+const timeDelay = 80
 
 
 export default function Snake(){
@@ -74,6 +74,7 @@ export function SnakeGame({ highscore=null, loggedin=false, username=null }) {
 	const [ delay, setDelay ] = useState()
 	const [ gameOver, setGameOver ] = useState(false)
 	const [ score, setScore ] = useState(0)
+	const [ snakeMoved, setSnakeMoved ] = useState(true)
 
     const [ gamestarted, setGameStarted ] = useState(false)
 
@@ -154,24 +155,29 @@ export function SnakeGame({ highscore=null, loggedin=false, username=null }) {
 		if (!appleAte(newSnake)) {
 			newSnake.pop()
 		}
+		setSnakeMoved(true)
 		setSnake(newSnake)
 	}
 
 	function changeDirection(e) {
 
-		if ( (e.key === "ArrowLeft" || e.key === "a" ) && direction[0] != 1 && direction[1] != 0) {
-			
+		if ( (e.key === "ArrowLeft" || e.key === "a" ) && direction[0] != 1 && direction[1] != 0 && snakeMoved) {
+			setSnakeMoved(false)
 			setDirection([ -1, 0 ])
-		} else if ( (e.key === "ArrowUp" || e.key === "w" ) && direction[0] != 0 && direction[1] != 1 ){
+		} else if ( (e.key === "ArrowUp" || e.key === "w" ) && direction[0] != 0 && direction[1] != 1 && snakeMoved){
+			setSnakeMoved(false)
 			setDirection([ 0, -1 ])
 
-		}else if ( (e.key === "ArrowRight" || e.key === "d" ) && direction[0] != -1 && direction[1] !=  0 ){
+		}else if ( (e.key === "ArrowRight" || e.key === "d" ) && direction[0] != -1 && direction[1] !=  0 && snakeMoved){
+			setSnakeMoved(false)
 			setDirection([ 1, 0 ])
 
-		}else if ( (e.key === "ArrowDown" || e.key === "s" ) && direction[0] != 0 && direction[1] != -1){
+		}else if ( (e.key === "ArrowDown" || e.key === "s" ) && direction[0] != 0 && direction[1] != -1 && snakeMoved){
+			setSnakeMoved(false)
 			setDirection([ 0, 1 ])
 
 		}
+		
 
 
 
