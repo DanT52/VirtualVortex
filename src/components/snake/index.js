@@ -80,6 +80,8 @@ export function SnakeGame({ highscore=null, loggedin=false, username=null }) {
 
 	
 	const [ highScore, setHighScore ] = useState(highscore)
+
+	let dirQueue = []
 	
 	
 
@@ -144,6 +146,28 @@ export function SnakeGame({ highscore=null, loggedin=false, username=null }) {
 	}
 
 	function runGame() {
+		move:if (dirQueue.length > 0){
+			let dir = dirQueue.shift()
+
+			if (direction[0] === 0 && dir[0]===0){
+				if (dir[1] === -1 && direction[1]=== 1 || dir[1]===1 && direction[1] === -1){
+					break move
+				}
+					
+				
+			}else if (direction[1] === 0 && dir[1]===0){
+				if (dir[0] === -1 && direction[0]=== 1 || dir[0]===1 && direction[0] === -1){
+					break move
+
+					
+				}
+					
+			} else {
+				setDirection(dir)
+			}
+			
+		}
+			
 		const newSnake = [ ...snake ]
 		const newSnakeHead = [ newSnake[0][0] + direction[0], newSnake[0][1] + direction[1] ]
 		newSnake.unshift(newSnakeHead)
@@ -161,20 +185,21 @@ export function SnakeGame({ highscore=null, loggedin=false, username=null }) {
 
 	function changeDirection(e) {
 
-		if ( (e.key === "ArrowLeft" || e.key === "a" ) && direction[0] != 1 && direction[1] != 0 && snakeMoved) {
-			setSnakeMoved(false)
-			setDirection([ -1, 0 ])
-		} else if ( (e.key === "ArrowUp" || e.key === "w" ) && direction[0] != 0 && direction[1] != 1 && snakeMoved){
-			setSnakeMoved(false)
-			setDirection([ 0, -1 ])
+		if  (e.key === "ArrowLeft" || e.key === "a" )   {
+			
+			dirQueue.push([ -1, 0 ])
+			
+		} else if  (e.key === "ArrowUp" || e.key === "w" ) {
+			
+			dirQueue.push([ 0, -1 ])
 
-		}else if ( (e.key === "ArrowRight" || e.key === "d" ) && direction[0] != -1 && direction[1] !=  0 && snakeMoved){
-			setSnakeMoved(false)
-			setDirection([ 1, 0 ])
+		}else if  (e.key === "ArrowRight" || e.key === "d" ) {
+			
+			dirQueue.push([ 1, 0 ])
 
-		}else if ( (e.key === "ArrowDown" || e.key === "s" ) && direction[0] != 0 && direction[1] != -1 && snakeMoved){
-			setSnakeMoved(false)
-			setDirection([ 0, 1 ])
+		}else if  (e.key === "ArrowDown" || e.key === "s" ) {
+			
+			dirQueue.push([ 0, 1 ])
 
 		}
 		

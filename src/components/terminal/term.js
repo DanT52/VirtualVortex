@@ -9,6 +9,7 @@ import Terminal from "react-console-emulator"
 import { useNavigate } from "react-router-dom"
 import { cmds } from "./commands"
 import { catResponse, getCat, getSnakeHs, SnakeScoreResponse, VirtualWelcome } from "./longCmdResponses"
+import { getVortexCoins, searchVortexCoins } from "./vortexcoins"
 
 
 
@@ -121,15 +122,48 @@ export default function Term(){
               }
             },
             snakehs: {
-              fn: async () => {
-                if (!user){
-                  return "please login, to save and veiw highscores."
+              fn: async (...args) => {
+                let text =""
+                if (args[0]){
+                  text = await getSnakeHs(args[0], 0)
                 }
-                const text = await getSnakeHs(user.username)
+                else if (!user){
+                  return "please login, to save and veiw highscores."
+                }else{
+                  text = await getSnakeHs(user.username, 1)
+                }
 
                 return text
               }
           },
+          balance: {
+            fn: async (...args) => {
+              let text =""
+              if (args[0]){
+                text = await getVortexCoins(args[0], 0)
+              }
+              else if (!user){
+                return "please login, to access vortex coins"
+              }else{
+                text = await getVortexCoins(user.username, 1)
+              }
+
+              return text
+            }
+        },
+        search: {
+          fn: async (...args) => {
+            let text =""
+            if (!user){
+              return "please login to access vortex coins"
+            }else{
+              terminal.current.pushToStdout("...")
+              text = await searchVortexCoins(user.username, args)
+            }
+
+            return text
+          }
+      },
             
             ...cmds
           }}

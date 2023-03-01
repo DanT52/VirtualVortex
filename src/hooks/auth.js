@@ -126,9 +126,12 @@ export function useLogin() {
               vortexCoins: 0,
               snakeHighScore: 0,
               timesPlayedSnake: 0,
-              lastworked: 0,
+              lastbegged: 0,
               lastrobbed: 0,
               notes: [],
+              lastsearched: 0,
+              islockeduntill:0,
+              isLockedReason: "na"
             })
   
             toast({
