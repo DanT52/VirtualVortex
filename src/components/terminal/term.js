@@ -9,7 +9,7 @@ import Terminal from "react-console-emulator"
 import { useNavigate } from "react-router-dom"
 import { cmds } from "./commands"
 import { catResponse, getCat, getSnakeHs, SnakeScoreResponse, VirtualWelcome } from "./longCmdResponses"
-import { getVortexCoins, searchVortexCoins } from "./vortexcoins"
+import { gambleVortexCoins, getVortexCoins, searchVortexCoins } from "./vortexcoins"
 
 
 
@@ -164,6 +164,19 @@ export default function Term(){
             return text
           }
       },
+      gamble: {
+        fn: async (...args) => {
+          let text =""
+          if (!user){
+            return "please login to access vortex coins"
+          }else{
+            terminal.current.pushToStdout("...")
+            text = await gambleVortexCoins(user.username, args)
+          }
+
+          return text
+        }
+    },
             
             ...cmds
           }}

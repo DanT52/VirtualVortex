@@ -1,6 +1,6 @@
 import { formatDistance, formatDistanceStrict, sub, subMinutes } from "date-fns"
 import { getGameData } from "./gamecmds"
-import { longSearchResponse } from "./longCmdResponses"
+import { longGambleResponse, longSearchResponse } from "./longCmdResponses"
 
 export async function getVortexCoins(username, isCurrentuser){
     const data = await getGameData(username)

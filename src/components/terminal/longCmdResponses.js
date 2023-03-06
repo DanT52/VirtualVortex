@@ -258,3 +258,35 @@ export async function longSearchResponse(username, place, data){
     }
     return text
 }
+
+export async function longGambleResponse(username, gambleAmount, data){
+    let text = ""
+    let response = {}
+    let vortexCoins = data.vortexCoins
+    const gambleResponses = [
+        {
+            "win": true,
+            "double": true,
+            "message": "you won",
+        },
+        {
+            "win": false,
+            "double": true,
+            "message": "You lost",
+        }
+    ]
+
+    response = pickresponse(gambleResponses);
+    
+    let amount = (response.double) ? gambleAmount : response.amount * gambleAmount;
+
+    let newBalance = (response.win) ? vortexCoins + amount : vortexCoins - amount;
+
+    text = (response.win) ? `${response.message}! \n + ${amount} vortex coins!` : `${response.message}! \n  -${amount} vortex coins ...  `
+    console.log("text set")
+    await updateDoc(doc(db, "gamestuff", username), {
+        vortexCoins: newBalance,
+    });
+    return text;
+
+}
