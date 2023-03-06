@@ -64,6 +64,7 @@ export async function searchVortexCoins(username, args){
 
 export async function gambleVortexCoins(username, args){
     let text = ""
+    let gambleAmount =0
     
     if (!args[0]){
         text = "You need to provide an amount... ex: \n gamble 10"
@@ -71,7 +72,13 @@ export async function gambleVortexCoins(username, args){
     }
     const data = await getGameData(username)
     let vortexCoins = data.vortexCoins
-    let gambleAmount = parseInt(args[0])
+    if (args[0]==="all"){
+        gambleAmount = vortexCoins
+
+    }else{
+        gambleAmount = parseInt(args[0])
+    }
+    
     if (vortexCoins < gambleAmount ){
         text = `You cannot gamble more than you have...\n you have ${vortexCoins} vortex coins.`
         return text

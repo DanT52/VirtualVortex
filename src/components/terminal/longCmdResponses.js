@@ -37,6 +37,7 @@ Vortex Coins:
 balance | shows how much vortex coins you have 
 balance <username> | shows how much vortex coins someonelse has.
 search park | search for vortex coins at a park.
+gamble amount | gamble all | gamble your vortex coins for a chance to have more or lose them.
 Other:
 ---
 clear | clear terminal
@@ -64,6 +65,8 @@ snake leaderboard added (1.2)
 added vortex coins.
 only commands currently are balance and search park.
 --
+3/6/2023 v1.2.2
+added gamble command
 functionality to be added: 
 vortex coins more stuff
 msg board
