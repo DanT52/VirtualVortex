@@ -1,6 +1,7 @@
 import { addMinutes, formatDistanceToNow } from "date-fns"
 import { doc, updateDoc } from "firebase/firestore"
 import { db } from "lib/firebase"
+import ColorFlashes from "../extra/colorflashes"
 import { getGameData } from "./gamecmds"
 
 
@@ -292,4 +293,27 @@ export async function longGambleResponse(username, gambleAmount, data){
     });
     return text;
 
+}
+
+export function colorFlashes(args){
+    let colors = false
+
+    if (args[0] == null){
+        args[0] = 30
+    }
+
+    if ( !(args[0] > 1 && args[0] < 10000) ) {
+        return "bad delay"
+    }
+    if (args[1] == 'c'){
+        colors = true
+    }
+
+    return(
+        <ColorFlashes delay={args[0]} colors={colors}/>
+    )
+    
+
+
+    
 }

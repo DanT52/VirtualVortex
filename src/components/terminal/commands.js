@@ -1,4 +1,5 @@
-import { changeLog, coinFlipResponse, eightBallResponse, helpCommand } from "./longCmdResponses"
+import ColorFlashes from "../extra/colorflashes"
+import { changeLog, coinFlipResponse, colorFlashes, eightBallResponse, helpCommand } from "./longCmdResponses"
 
 export const cmds = {
     echo: {
@@ -24,6 +25,9 @@ export const cmds = {
     },
     eightball: {
         fn: (...args) => eightBallResponse(args.join(' '))
+    },
+    blind: {
+        fn:(...args) => colorFlashes(args)
     },
     
     
