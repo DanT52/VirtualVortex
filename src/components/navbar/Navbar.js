@@ -1,14 +1,14 @@
-import { Flex, Link, Button, Box } from "@chakra-ui/react";
+import { Flex, Link, Button} from "@chakra-ui/react";
 import Loading from "components/extra/loading";
 import { useAuth, useLogout } from "hooks/auth";
 import { LOGIN, ROOT, SNAKE, SNAKELB, TERM } from "lib/routes";
 import { useLocation } from "react-router-dom";
-import { useState } from "react";
+
 
 import { Link as RouterLink } from "react-router-dom";
 
 export default function Navbar() {
-    const {logout, isLoading} = useLogout();
+    const {logout} = useLogout();
     const {user, isLoading: userLoading} = useAuth();
     const location = useLocation();
     if (userLoading){
@@ -62,7 +62,7 @@ export default function Navbar() {
                         Logout
                     </Button>
                 }
-                {(!userLoading && !user && location.pathname != LOGIN) &&<Button
+                {(!userLoading && !user && location.pathname !== LOGIN) &&<Button
                     ml="auto"
                     colorScheme="purple"
                     size="sm"
