@@ -2,14 +2,14 @@ import { Box, Button, Code, Container, Flex, Stack, Text } from "@chakra-ui/reac
 import React, { useEffect, useRef, useState } from "react"
 import "./App.css"
 import AppleLogo from "./applePixels.png"
-import Monitor from "./oldMonitor.png"
 import { useInterval } from "@chakra-ui/react"
 import Navbar from "components/navbar/Navbar"
 import Loading from "components/extra/loading"
 import { useAuth } from "hooks/auth"
-import { getGame, useGetGame, useSaveSnakeHs } from "hooks/users"
+import { useGetGame, useSaveSnakeHs } from "hooks/users"
 import { Link } from "react-router-dom"
 import { SNAKELB } from "lib/routes"
+
 
 const canvasX = 1000
 const canvasY = 1000
@@ -19,13 +19,10 @@ const scale = 50
 const timeDelay = 80
 
 
-export default function Snake(){
+export default function Snake(){ // find out if use is logge in return the correct page
 
-	
+
 	const {user, isLoading: userLoading} = useAuth();
-	if (user& !userLoading){
-		const loggedin=true;
-	}
 
 	function InnerSnake(){
 		const { data, isLoading: scoreLoading }  =  useGetGame(user.username);
@@ -40,7 +37,6 @@ export default function Snake(){
 			<SnakeGame highscore={data.snakeHighScore} username={user.username} loggedin={true}/>
 	
 		)
-
 
 	}
 
@@ -74,7 +70,7 @@ export function SnakeGame({ highscore=null, loggedin=false, username=null }) {
 	const [ delay, setDelay ] = useState()
 	const [ gameOver, setGameOver ] = useState(false)
 	const [ score, setScore ] = useState(0)
-	const [ snakeMoved, setSnakeMoved ] = useState(true)
+	
 
     const [ gamestarted, setGameStarted ] = useState(false)
 
@@ -146,25 +142,20 @@ export function SnakeGame({ highscore=null, loggedin=false, username=null }) {
 	}
 
 	function runGame() {
-		move:if (dirQueue.length > 0){
+		if (dirQueue.length > 0){
 			let dir = dirQueue.shift()
 
-			if (direction[0] === 0 && dir[0]===0){
-				if (dir[1] === -1 && direction[1]=== 1 || dir[1]===1 && direction[1] === -1){
-					break move
-				}
-					
+			if ((direction[0] === 0 && dir[0] === 0) || (direction[1] === 0 && dir[1] === 0)) {
+				let areOppositeDirections = 
+					((dir[1] === -1 && direction[1] === 1) || (dir[1] === 1 && direction[1] === -1)) ||
+					((dir[0] === -1 && direction[0] === 1) || (dir[0] === 1 && direction[0] === -1));
 				
-			}else if (direction[1] === 0 && dir[1]===0){
-				if (dir[0] === -1 && direction[0]=== 1 || dir[0]===1 && direction[0] === -1){
-					break move
-
-					
+				if (areOppositeDirections) {
+					return;
 				}
-					
-			} else {
-				setDirection(dir)
 			}
+			
+			setDirection(dir);
 			
 		}
 			
@@ -179,7 +170,7 @@ export function SnakeGame({ highscore=null, loggedin=false, username=null }) {
 		if (!appleAte(newSnake)) {
 			newSnake.pop()
 		}
-		setSnakeMoved(true)
+		
 		setSnake(newSnake)
 	}
 
@@ -203,37 +194,7 @@ export function SnakeGame({ highscore=null, loggedin=false, username=null }) {
 
 		}
 		
-
-
-
-		/*switch (e.key) {
-			case "ArrowLeft":
-				setDirection([ -1, 0 ])
-				break
-			case "ArrowUp":
-				setDirection([ 0, -1 ])
-				break
-			case "ArrowRight":
-				setDirection([ 1, 0 ])
-				break
-			case "ArrowDown":
-				setDirection([ 0, 1 ])
-				break
-            case "a":
-				setDirection([ -1, 0 ])
-				break
-			case "w":
-				setDirection([ 0, -1 ])
-				break
-			case "d":
-				setDirection([ 1, 0 ])
-				break
-			case "s":
-				setDirection([ 0, 1 ])
-				break
-		} */
 	}
-
  
 
     
