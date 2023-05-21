@@ -2,7 +2,7 @@
 
 Virtual Vortex is an online playground app.
 
-check it out here at [virtualvortex.net](virtualvortex.net)
+check it out here at [virtualvortex.net](https://virtualvortex.net/)
 
 
 ## Main Features:

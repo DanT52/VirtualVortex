@@ -1,4 +1,4 @@
-import ColorFlashes from "../extra/colorflashes"
+
 import { changeLog, coinFlipResponse, colorFlashes, eightBallResponse, helpCommand } from "./longCmdResponses"
 
 export const cmds = {
