@@ -18,61 +18,37 @@ export const VirtualWelcome = [
 
 ]
 
-export const helpCommand = ` 
-List of Commands:
----
-Navigate commands: home, snake, snakelb, login, logout
----
-Fun commands:
-command | what it does          | usage
----
-echo 
-cat     | sends a cat
-eightball   | answers your question | 8ball <your question>
-coinflip| flips a coin
-snakehs | Tells you your snake highscore and when you set it.
-snakehs <username> tells you another users snake hs.
-weather cityname/zipcode | shows weather in cityname/zipcode.
----
-Vortex Coins:
----
-balance | shows how much vortex coins you have 
-balance <username> | shows how much vortex coins someonelse has.
-search park/abandoned-mine | search for vortex coins at a park.
-gamble amount | gamble all | gamble your vortex coins for a chance to have more or lose them.
-Other:
----
-clear | clear terminal
-changlog
----
+export const helpCommand = `
+--- List of Commands ---
+ 
+Navigation: home, snake, snakelb, login, logout
+
+Fun Commands: 
+- echo: Repeats what you type. Usage: echo <your text>
+- cat: Sends a cat.
+- 8ball: Answers your question. Usage: 8ball <your question>
+- coinflip: Flips a coin.
+- snakehs: Displays your snake highscore. Usage: snakehs or snakehs <username>
+- weather: Shows weather. Usage: weather <cityname/zipcode>
+
+Vortex Coins: 
+- balance: Displays your Vortex coins. Usage: balance or balance <username>
+- search: Searches for Vortex coins. Usage: search <park/abandoned-mine>
+- gamble: Gambles your Vortex coins. Usage: gamble <amount/all>
+
+Other Commands:
+- clear: Clears terminal.
+- changelog: Displays the changelog.
 
 `
 
 export const changeLog = `
-
-2/20/2023 v1.0
-launched
-terminal 
-snake game
-login/register/logout
----
-2/22/2023 v1.1
-saves snake highscores when logged in (1.1)
----
-2/24/2023 v1.2
-snake leaderboard added (1.2)
----
-2/27/2023 v1.2.1
---
-added vortex coins.
-only commands currently are balance and search park.
---
-3/6/2023 v1.2.2
-added gamble command
---
-5/21/2023 v1.2.3
-added search abandoned-mine command
-added weather command.
+v1.0 (2/20/2023): Launched terminal, snake game, login/register/logout.
+v1.1 (2/22/2023): Snake highscores now saved when logged in.
+v1.2 (2/24/2023): Added snake leaderboard.
+v1.2.1 (2/27/2023): Introduced Vortex coins with 'balance' and 'search park' commands.
+v1.2.2 (3/6/2023): Added 'gamble' command.
+v1.2.3 (5/21/2023): Introduced 'search abandoned-mine' and 'weather' commands.
 `
 
 export async function weatherInfo(location){
