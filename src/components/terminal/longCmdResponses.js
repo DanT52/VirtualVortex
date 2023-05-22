@@ -32,6 +32,7 @@ eightball   | answers your question | 8ball <your question>
 coinflip| flips a coin
 snakehs | Tells you your snake highscore and when you set it.
 snakehs <username> tells you another users snake hs.
+weather cityname/zipcode | shows weather in cityname/zipcode.
 ---
 Vortex Coins:
 ---
@@ -73,6 +74,43 @@ added gamble command
 added search abandoned-mine command
 added weather command.
 `
+
+export async function weatherInfo(location){
+    let url = "";
+    
+    // Check if location is a zipcode (assuming US zip codes which are 5 digits long)
+    if (/^\d{5}$/.test(location)) {
+        url = `https://api.openweathermap.org/data/2.5/weather?zip=${location}&appid=08e3376ddbf462cca0498dec33003971&units=imperial`;
+    } else { // otherwise assume it's a city name
+        url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=08e3376ddbf462cca0498dec33003971&units=imperial`;
+    }
+
+    let response = await fetch(url);
+
+    if (response.ok) { // if HTTP-status is 200-299
+        let json = await response.json();
+
+        let weatherDescription = json.weather[0].description;
+        let temp = json.main.temp;
+        let feelsLike = json.main.feels_like;
+        let tempMin = json.main.temp_min;
+        let tempMax = json.main.temp_max;
+        let humidity = json.main.humidity;
+        let windSpeed = json.wind.speed;
+        let city = json.name;
+        let country = json.sys.country;
+
+        let weatherInfo = `Weather in ${city}, ${country}: ${weatherDescription}. 
+            Temperature: ${temp}°F (feels like ${feelsLike}°F). 
+            The high today will be ${tempMax}°F with a low of ${tempMin}°F. 
+            Humidity is at ${humidity}%. Wind speed is ${windSpeed} mph.`;
+
+        return weatherInfo;
+    } else {
+        console.log("HTTP-Error: " + response.status);
+        return "City not found, \n command useage:\nweather cityname \n weather USzipcode"
+    }
+}
 
 export async function getCat() { //get cat
     const res = await fetch('https://api.thecatapi.com/v1/images/search')

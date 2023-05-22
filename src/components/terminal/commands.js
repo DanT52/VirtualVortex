@@ -1,5 +1,5 @@
 
-import { changeLog, coinFlipResponse, colorFlashes, eightBallResponse, helpCommand } from "./longCmdResponses"
+import { changeLog, coinFlipResponse, colorFlashes, eightBallResponse, helpCommand, weatherInfo } from "./longCmdResponses"
 
 export const cmds = {
     echo: {
@@ -28,6 +28,13 @@ export const cmds = {
     },
     blind: {
         fn:(...args) => colorFlashes(args)
+    },
+    weather: {
+        fn: async(...args) => {
+            return await weatherInfo(args.join(' '))
+            
+        }
+            
     },
     
     
