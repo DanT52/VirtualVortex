@@ -1,4 +1,4 @@
-import { addMinutes, formatDistanceToNow } from "date-fns"
+import {  formatDistanceToNow } from "date-fns"
 import { doc, updateDoc } from "firebase/firestore"
 import { db } from "lib/firebase"
 import ColorFlashes from "../extra/colorflashes"
@@ -37,7 +37,7 @@ Vortex Coins:
 ---
 balance | shows how much vortex coins you have 
 balance <username> | shows how much vortex coins someonelse has.
-search park | search for vortex coins at a park.
+search park/abandoned-mine | search for vortex coins at a park.
 gamble amount | gamble all | gamble your vortex coins for a chance to have more or lose them.
 Other:
 ---
@@ -68,11 +68,10 @@ only commands currently are balance and search park.
 --
 3/6/2023 v1.2.2
 added gamble command
-functionality to be added: 
-vortex coins more stuff
-msg board
 --
-
+5/21/2023 v1.2.3
+added search abandoned-mine command
+added weather command.
 `
 
 export async function getCat() { //get cat
@@ -220,10 +219,86 @@ export async function longSearchResponse(username, place, data){
             "jailTimeMsg": "You got chased by a dog at the park and are very tired"
         },
     ]
+    const mineResponses = [
+        {
+            "response": "As you delve into the mine, you discover a hidden chest filled with ancient coins. \n You have gained 50 Vortex coins!",
+            "balanceChange": 50,
+            "searchAgain": false
+        },
+        {
+            "response": "You explore the mine, but it's been picked clean. No Vortex coins in sight.",
+            "balanceChange": 0,
+            "searchAgain": false
+        },
+        {
+            "response": "Navigating through the mine, your torch glimmers off something shiny. It's a pile of 15 Vortex coins!",
+            "balanceChange": 15,
+            "searchAgain": false
+        },
+        {
+            "response": "In the eerie silence of the mine, you notice a glinting rock. It's a raw Vortex ore worth 10 coins.",
+            "balanceChange": 10,
+            "searchAgain": false
+        },
+        {
+            "response": "You venture into a previously collapsed area of the mine, and find 5 Vortex coins amidst the debris. There might be more, prompting you to search again.",
+            "balanceChange": 5,
+            "searchAgain": true
+        },
+    ]
+    
+    const mineResponsesBad = [
+        {
+            "response": "As you delve deeper into the mine, a sudden cave-in traps you. \n You have to pay 20 Vortex coins for a rescue operation.",
+            "balanceChange": 20,
+            "jailTime": 60,
+            "jailTimeMsg": "You're trapped in a mine cave-in and waiting for rescue..."
+        },
+        {
+            "response": "While exploring, you encounter a terrifying creature. In your haste to escape, you drop 10 Vortex coins.",
+            "balanceChange": 10,
+            "jailTime": 30,
+            "jailTimeMsg": "You ran away from a creature in the mine, and are hiding to recover."
+        },
+        {
+            "response": "As you navigate the mine, you fall into a hidden pit. It takes some time and 5 Vortex coins to get out.",
+            "balanceChange": 5,
+            "jailTime": 15,
+            "jailTimeMsg": "You fell into a pit in the mine and need time to climb out."
+        },
+    ]
 
 
+    if (place === "abandoned-mine") {
 
-    if(place === "park"){
+        if (Math.random() > 0.3){
+            response = pickresponse(mineResponses);
+            let lastSearched = (!response.searchAgain ? Date.now() : 0);
+            let vortexCoins = data.vortexCoins + response.balanceChange;
+    
+            await updateDoc(doc(db, "gamestuff", username), {
+                lastsearched: lastSearched,
+                vortexCoins: vortexCoins,
+            });
+            text = response.response;
+    
+        } else {
+            response = pickresponse(mineResponsesBad);
+            
+            let currentDate = Date.now();
+            let vortexCoins = data.vortexCoins - response.balanceChange;
+            let jailTime =  currentDate + (60000 * response.jailTime);
+            
+            await updateDoc(doc(db, "gamestuff", username), {
+                lastsearched: Date.now(),
+                vortexCoins: vortexCoins,
+                islockeduntill: jailTime,
+                isLockedReason: response.jailTimeMsg,
+            });
+            text = response.response;
+        }
+    } 
+    else if(place === "park"){
 
         if (Math.floor(Math.random()*10) > 1){
             response = pickresponse(parkResponses)
@@ -305,7 +380,7 @@ export function colorFlashes(args){
     if ( !(args[0] > 1 && args[0] < 10000) ) {
         return "bad delay"
     }
-    if (args[1] == 'c'){
+    if (args[1] === 'c'){
         colors = true
     }
 

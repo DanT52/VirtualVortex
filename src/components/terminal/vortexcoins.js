@@ -31,8 +31,8 @@ export async function getVortexCoins(username, isCurrentuser){
 export async function searchVortexCoins(username, args){
     let text =""
     if (!args[0]){
-        text = `You need to provide a place to search... \n Ex: \n search park\n...\n avalible places to search:\n
-        park, (more to be added)\n...\n good luck searching...`
+        text = `You need to provide a place to search... \n Ex: \n search park\nsearch abandoned-mine\n...\n avalible places to search:\n
+        park, abandoned-mine\n...\n good luck searching...`
         return text
 
     }
