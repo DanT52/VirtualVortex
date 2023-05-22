@@ -23,13 +23,8 @@ check it out here at [virtualvortex.net](https://virtualvortex.net/)
     - highscores are saved if you are logged in.
 - linux terminal emulator
     - features several fun commands eg.
-        - cat (sends image of cat)
-        - coinflip (flips a coin)
-        - eightball
     - Vortex Coins
-        - gamble and search for vortex coins.
-    - Weather Command (comming soon)
-        - weather 'city/zipcode'
+    - Weather Command
 
 ## Commands for Terminal Emulator
 
