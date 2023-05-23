@@ -26,7 +26,7 @@ Navigation: home, snake, snakelb, login, logout
 Fun Commands: 
 - echo: Repeats what you type. Usage: echo <your text>
 - cat: Sends a cat.
-- 8ball: Answers your question. Usage: 8ball <your question>
+- eightball: Answers your question. Usage: eightball <your question>
 - coinflip: Flips a coin.
 - snakehs: Displays your snake highscore. Usage: snakehs or snakehs <username>
 - weather: Shows weather. Usage: weather <cityname/zipcode>
