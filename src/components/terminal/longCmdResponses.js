@@ -211,13 +211,13 @@ export async function longSearchResponse(username, place, data){
         {
             "response": "As you are searching you stumble and fall breaking your leg and ending up in the hospital\n you pay 10 vortex coins",
             "balanceChange": 10,
-            "jailTime": 30,
+            "jailTime": 9,
             "jailTimeMsg": "Your Leg is broken and you are in the hospital..."
         },
         {
             "response": "As you search the park you get involved in a fight, in the confusion you are arrested and fined 5 vortex coins",
             "balanceChange": 5,
-            "jailTime": 20,
+            "jailTime": 6,
             "jailTimeMsg": "You are in jail for getting into a fight at the park"
         },
         {
@@ -229,7 +229,7 @@ export async function longSearchResponse(username, place, data){
         {
             "response": "As you are searching the park, you get chased by a dog, you get away but are now very tired.",
             "balanceChange": 0,
-            "jailTime": 10,
+            "jailTime": 5,
             "jailTimeMsg": "You got chased by a dog at the park and are very tired"
         },
     ]
@@ -265,19 +265,19 @@ export async function longSearchResponse(username, place, data){
         {
             "response": "As you delve deeper into the mine, a sudden cave-in traps you. \n You have to pay 20 Vortex coins for a rescue operation.",
             "balanceChange": 20,
-            "jailTime": 60,
+            "jailTime": 10,
             "jailTimeMsg": "You're trapped in a mine cave-in and waiting for rescue..."
         },
         {
             "response": "While exploring, you encounter a terrifying creature. In your haste to escape, you drop 10 Vortex coins.",
             "balanceChange": 10,
-            "jailTime": 30,
+            "jailTime": 7,
             "jailTimeMsg": "You ran away from a creature in the mine, and are hiding to recover."
         },
         {
             "response": "As you navigate the mine, you fall into a hidden pit. It takes some time and 5 Vortex coins to get out.",
             "balanceChange": 5,
-            "jailTime": 15,
+            "jailTime": 6,
             "jailTimeMsg": "You fell into a pit in the mine and need time to climb out."
         },
     ]
@@ -285,7 +285,7 @@ export async function longSearchResponse(username, place, data){
 
     if (place === "abandoned-mine") {
 
-        if (Math.random() > 0.3){
+        if (Math.random() > 0.2){
             response = pickresponse(mineResponses);
             let lastSearched = (!response.searchAgain ? Date.now() : 0);
             let vortexCoins = data.vortexCoins + response.balanceChange;

@@ -47,7 +47,7 @@ export async function searchVortexCoins(username, args){
     if (inJail > currentDate){
         text = `You cannot search as:\n ${jailReason}\n you can search again in ${formatDistanceStrict(currentDate, inJail)}.`
     }
-    else if (lastSearched > subMinutes(currentDate, 5)){
+    else if (lastSearched > subMinutes(currentDate, 1)){
         text = `You just searched...\n you are tired\n please wait ${formatDistanceStrict(lastSearched, subMinutes(currentDate, 5))}.`
 
     }else{
