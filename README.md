@@ -3,6 +3,11 @@
 Virtual Vortex is an online playground app.
 
 check it out here at [virtualvortex.net](https://virtualvortex.net/)
+<p float="left">
+  <img src="https://i.imgur.com/SJupqax.png" width="300" />
+  <img src="https://i.imgur.com/FB41tg1.png" width="300" /> 
+  <img src="https://i.imgur.com/quBoe3L.png" width="300" />
+</p>
 
 ## Created With:
 - Reactjs 
