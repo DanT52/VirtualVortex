@@ -288,7 +288,7 @@ export function SnakeGame({ highscore=null, loggedin=false, username=null }) {
 			{(gameOver || !gamestarted)&&
 			
 			<Button colorScheme="purple" as={Link} to={SNAKELB}>
-                Veiw Leaderboard
+                View Leaderboard
             </Button> }
 
             </Stack>
