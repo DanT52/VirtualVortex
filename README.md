@@ -2,7 +2,8 @@
 
 Virtual Vortex is an online playground app.
 
-check it out here at [virtualvortex]([https://virtualvortex.net/](https://virtualvortex-eff1f.web.app/))
+Check it out here at [VirtualVortex](https://virtualvortex-eff1f.web.app/)
+
 <p float="left">
   <img src="https://i.imgur.com/SJupqax.png" width="300" />
   <img src="https://i.imgur.com/FB41tg1.png" width="300" /> 
